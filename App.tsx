@@ -17,7 +17,7 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
-import MainEntrie from "./src/MainEntrie";
+import MainEntrie from './src/MainEntrie';
 
 function App(): JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
