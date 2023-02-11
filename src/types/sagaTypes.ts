@@ -1,4 +1,4 @@
-import type {DateData} from 'react-native-calendars';
+import type { DateData } from "react-native-calendars";
 
 export type StateType = {
   day: DateData | null,
