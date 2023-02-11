@@ -2,26 +2,29 @@ import React, { useEffect, useCallback, useState } from "react";
 import { View, Text, StyleSheet, ActivityIndicator } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 
-import { StateType } from "../../types/sagaTypes";
 import DayItem from "../DayItem";
+import PrimaryCondition from "../PrimaryCondition";
+
+import { oneTime } from "../../consts/requestConsts";
+
+import { StateType } from "../../types/sagaTypes";
+import { DayItemType, WeatherPoint } from "../../types/weathersTypes";
 
 
 export default function WeekWeather() {
 	const dispatch = useDispatch();
 	const state = useSelector((state: StateType) => state);
-	const [loading, setLoading] = useState(false);
-
 	const { weatherFor5Day } = state;
-	const oneTime = "12:00:00";
 
 	useEffect(() => {
 		dispatch({ type: "GET_WEATHER" });
 	}, []);
 
 	const renderWeek = useCallback(() => {
+		const currentWeek: DayItemType[]  = [];
+
 		if (weatherFor5Day) {
-			const currentWeek: any[] = [];
-			weatherFor5Day?.list.forEach((it: any) => {
+			weatherFor5Day?.list.forEach((it: WeatherPoint) => {
 				if (it.dt_txt.includes(oneTime)) {
 					currentWeek.push({
 						date: it.dt_txt,
@@ -48,8 +51,10 @@ export default function WeekWeather() {
 	return (
 		<View style={styles.wrapper}>
 			<Text style={styles.title}>
-				WEATHER IN {weatherFor5Day?.city.name.toUpperCase()}
+				WEATHER IN {weatherFor5Day?.city.name.toUpperCase()} FOR NEXT 5 DAYS
 			</Text>
+
+			<PrimaryCondition/>
 
 			<View>
 				{renderWeek()}
@@ -64,7 +69,7 @@ const styles = StyleSheet.create({
 		padding: 10
 	},
 	loadingWrapper: {
-		height: "50%",
+		height: "55%",
 		padding: 10,
 		display: "flex",
 		justifyContent: "center",
@@ -75,5 +80,8 @@ const styles = StyleSheet.create({
 		color: "#000000",
 		marginBottom: 10,
 		fontWeight: "bold",
+	},
+	subTitle: {
+		color: "#000000",
 	}
 });
