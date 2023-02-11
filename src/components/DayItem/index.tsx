@@ -1,5 +1,6 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
+import moment from "moment";
 
 import WeatherIcon from "../WeatherIcon";
 
@@ -13,7 +14,12 @@ export default function DayItem({ date, weather, temp }: DayItemType) {
 			</View>
 
 			<View style={styles.textDataWrapper}>
-				<Text style={styles.textData}>{weather[0].main}</Text>
+				<View>
+					<Text style={styles.textData}>{weather[0].main}</Text>
+					<Text style={styles.textData}>
+						{moment(date.split(" ")[0]).format("dddd")}
+					</Text>
+				</View>
 				<Text style={styles.textData}>{date.split(" ")[0]}</Text>
 				<Text style={styles.textData}>{Math.round(temp)} °C</Text>
 			</View>
