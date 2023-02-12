@@ -1,23 +1,31 @@
-import React, { useEffect, useCallback, useState } from "react";
-import { View, Text, StyleSheet, ActivityIndicator } from "react-native";
+import React, { useEffect, useCallback } from "react";
+import {
+	View,
+	Text,
+	StyleSheet,
+	ScrollView
+} from "react-native";
 import { useDispatch, useSelector } from "react-redux";
+import Snackbar from "react-native-snackbar";
 
 import DayItem from "../DayItem";
 import PrimaryCondition from "../PrimaryCondition";
-
-import { oneTime } from "../../consts/requestConsts";
+import CurrentDayItem from "../CurrentDayItem";
+import LargeLoading from "../loaders/LargeLoading";
 
 import { StateType } from "../../types/sagaTypes";
 import { DayItemType, WeatherPoint } from "../../types/weathersTypes";
+
+import { oneTime } from "../../consts/requestConsts";
 
 
 export default function WeekWeather() {
 	const dispatch = useDispatch();
 	const state = useSelector((state: StateType) => state);
-	const { weatherFor5Day } = state;
+	const { weatherFor5Day, weatherFor5DayError } = state;
 
 	useEffect(() => {
-		dispatch({ type: "GET_WEATHER" });
+		dispatch({ type: "GET_WEATHER_DATA" });
 	}, []);
 
 	const renderWeek = useCallback(() => {
@@ -40,12 +48,17 @@ export default function WeekWeather() {
 		}
 	}, [weatherFor5Day]);
 
+	if (weatherFor5DayError) {
+		Snackbar.show({
+			text: "Something went wrong :(",
+			duration: Snackbar.LENGTH_LONG,
+		});
+
+		return <LargeLoading/>;
+	}
+
 	if (!weatherFor5Day) {
-		return (
-			<View style={styles.loadingWrapper}>
-				<ActivityIndicator size={"large"}/>
-			</View>
-		);
+		return <LargeLoading/>;
 	}
 
 	return (
@@ -56,9 +69,11 @@ export default function WeekWeather() {
 
 			<PrimaryCondition/>
 
-			<View>
+			<ScrollView>
+				<CurrentDayItem/>
+
 				{renderWeek()}
-			</View>
+			</ScrollView>
 		</View>
 	);
 }
@@ -67,13 +82,6 @@ const styles = StyleSheet.create({
 	wrapper: {
 		height: "55%",
 		padding: 10
-	},
-	loadingWrapper: {
-		height: "55%",
-		padding: 10,
-		display: "flex",
-		justifyContent: "center",
-		alignItems: "center"
 	},
 	title: {
 		fontSize: 18,

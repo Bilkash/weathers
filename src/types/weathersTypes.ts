@@ -4,6 +4,10 @@ export interface DayItemType {
   weather: WeatherType[]
 }
 
+export type RootStackParamList = {
+  [key: string]: { date: string } | undefined;
+};
+
 export type WeatherType = {
   id: number,
   main: string,
@@ -24,6 +28,31 @@ export interface Weather5DayType {
   city: City;
 }
 
+export interface RespondCurrentWeatherType {
+  config: any,
+  data: CurrentWeatherPoint
+}
+
+export interface CurrentWeatherPoint {
+  base: string;
+  clouds: Clouds;
+  cod: number;
+  coord: Coordinates;
+  dt: number;
+  id: number;
+  main: Main;
+  name: string;
+  sys: {
+    country: string;
+    sunrise: number;
+    sunset: number;
+  };
+  timezone: number;
+  visibility: number;
+  weather: WeatherCondition[];
+  wind: Wind;
+}
+
 export interface WeatherPoint {
   dt: number;
   main: Main;
@@ -41,6 +70,9 @@ export interface Main {
   temp: number;
   pressure: number;
   humidity: number;
+  temp_max?: number | undefined;
+  temp_min?: number | undefined;
+  feels_like?: number | undefined;
   // additional properties can be added here
 }
 
@@ -58,6 +90,7 @@ export interface Clouds {
 export interface Wind {
   speed: number;
   deg: number;
+  gust?: number;
 }
 
 export interface Rain {

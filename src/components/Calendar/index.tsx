@@ -1,19 +1,47 @@
-import React, { useCallback, useState } from "react";
+import React from "react";
 import { Calendar as CalendarComponent } from "react-native-calendars";
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
 import type { DateData } from "react-native-calendars";
 import { StyleSheet, View } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { useSelector } from "react-redux";
+import Snackbar from "react-native-snackbar";
+import moment from "moment";
+
+import { routes } from "../../routes";
+
+import { RootStackParamList } from "../../types/weathersTypes";
+import { StateType } from "../../types/sagaTypes";
 
 export default function Calendar() {
-	const dispatch = useDispatch();
-	const [selected, setSelected] = useState<DateData | null>(null);
-	const data = useSelector(state => state);
+	const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
+	const state = useSelector((state: StateType) => state);
+	const { weatherFor5Day } = state;
+	const currentDate = moment().format("YYYY-MM-DD");
 
-	const onDayPress = useCallback((day: DateData) => {
-		setSelected(day);
-		dispatch({ type: "SET_DAY", payload: day });
-	}, []);
+	const onDayPress = (day: DateData) => {
+		if (weatherFor5Day) {
+			if (
+				day.dateString !== currentDate
+				&& !weatherFor5Day?.list.find((it) => it.dt_txt.split(" ")[0] === day.dateString)
+			) {
+				Snackbar.show({
+					text: "Sorry we don`t have data for this day.",
+					duration: Snackbar.LENGTH_LONG,
+				});
+			} else {
+				navigation.navigate(
+					routes.detail,
+					{ date: day.dateString }
+				);
+			}
+		} else {
+			Snackbar.show({
+				text: "Please wait.",
+				duration: Snackbar.LENGTH_LONG,
+			});
+		}
+	};
 
 	return (
 		<View style={styles.wrapper}>

@@ -1,9 +1,10 @@
 import { StateType } from "../types/sagaTypes";
 
 const initialState = {
-	day: null,
 	weatherFor5Day: null,
-	weatherFor5DayError: null
+	weatherFor5DayError: null,
+	currentWeather: null,
+	currentWeatherError: null,
 };
 
 type RootAction = {
@@ -16,14 +17,15 @@ export default function rootReducer(
 	action: RootAction
 ) {
 	switch (action.type) {
-	case "SET_DAY":
-		return { ...state, day: action.payload };
-	case "CLEAR_DAY":
-		return { ...state, day: null };
 	case "GET_5_DAY_WEATHER":
 		return { ...state, weatherFor5Day: action.payload };
 	case "SET_ERROR_5_DAY_WEATHER":
 		return { ...state, weatherFor5DayError: action.payload };
+	case "GET_CURRENT_WEATHER":
+		return { ...state, currentWeather: action.payload };
+	case "SET_ERROR_CURRENT_WEATHER": {
+		return { ...state, currentWeatherError: action.payload };
+	}
 	default:
 		return state;
 	}

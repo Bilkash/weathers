@@ -1,39 +1,28 @@
-import React from 'react';
-import {Button, StyleSheet, Text, View } from 'react-native';
-import {useDispatch, useSelector} from 'react-redux';
-import axios from 'axios';
+import React from "react";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-import Calendar from './components/Calendar';
-import WeekWeather from './components/WeekWeather';
+import MainScreen from "./screens/main";
+import DetailScreen from "./screens/detail";
+
+import { routes } from "./routes";
+
+const Stack = createNativeStackNavigator();
 
 export default function MainEntrie() {
-  const dispatch = useDispatch()
-  const state = useSelector(state => state);
+	return (
+		<>
+			<Stack.Navigator initialRouteName={routes.main}>
+				<Stack.Screen
+					name={routes.main}
+					component={MainScreen}
+					options={{ headerShown: false }}
+				/>
 
-  const handleGetWeather = () => {
-    dispatch({type: "GET_WEATHER"})
-  }
-
-  return (
-    <View>
-      <WeekWeather/>
-
-      {/*<Button title={"GET_WEATHER"} onPress={handleGetWeather}/>*/}
-
-      {/*<Button*/}
-      {/*  title={"CLEAR DAY"}*/}
-      {/*  onPress={() => dispatch({type: 'CLEAR_DAY'})}*/}
-      {/*  color={'red'}*/}
-      {/*/>*/}
-
-      <Calendar/>
-    </View>
-  )
+				<Stack.Screen
+					name={routes.detail}
+					component={DetailScreen}
+				/>
+			</Stack.Navigator>
+		</>
+	);
 }
-
-const styles = StyleSheet.create({
-  wrapper: {
-    flex: 1,
-    justifyContent: "center",
-  }
-});

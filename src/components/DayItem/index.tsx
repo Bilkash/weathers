@@ -1,29 +1,52 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import moment from "moment";
+import { useNavigation } from "@react-navigation/native";
+import { StackNavigationProp } from "@react-navigation/stack";
 
 import WeatherIcon from "../WeatherIcon";
 
-import { DayItemType } from "../../types/weathersTypes";
+import { DayItemType, RootStackParamList } from "../../types/weathersTypes";
+
+import { routes } from "../../routes";
 
 export default function DayItem({ date, weather, temp }: DayItemType) {
-	return (
-		<View style={styles.wrapper}>
-			<View style={styles.iconWrapper}>
-				<WeatherIcon icon={weather[0].icon}/>
-			</View>
+	const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
 
-			<View style={styles.textDataWrapper}>
-				<View>
-					<Text style={styles.textData}>{weather[0].main}</Text>
-					<Text style={styles.textData}>
-						{moment(date.split(" ")[0]).format("dddd")}
-					</Text>
+	return (
+		<TouchableOpacity
+			onPress={
+				() => navigation.navigate(
+					routes.detail,
+					{ date: date.split(" ")[0] }
+				)
+			}
+		>
+			<View style={styles.wrapper}>
+				<View style={styles.iconWrapper}>
+					<WeatherIcon icon={weather[0].icon}/>
 				</View>
-				<Text style={styles.textData}>{date.split(" ")[0]}</Text>
-				<Text style={styles.textData}>{Math.round(temp)} °C</Text>
+
+				<View style={styles.textDataWrapper}>
+					<View>
+						<Text style={styles.textData}>{weather[0].main}</Text>
+						<Text style={styles.textData}>
+							{moment(date.split(" ")[0]).format("dddd")}
+						</Text>
+					</View>
+					<View>
+						<Text style={styles.textData}>
+							{date.split(" ")[0]}
+						</Text>
+					</View>
+					<View>
+						<Text style={styles.textData}>
+							{Math.round(temp)} °C
+						</Text>
+					</View>
+				</View>
 			</View>
-		</View>
+		</TouchableOpacity>
 	);
 }
 
@@ -58,5 +81,6 @@ const styles = StyleSheet.create({
 		display: "flex",
 		flexDirection: "row",
 		justifyContent: "space-between",
+		alignItems: "center",
 	}
 });

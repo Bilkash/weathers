@@ -20,28 +20,55 @@ export default function WeatherIcon({ icon }: WeatherIconType) {
 	case "01d": {
 		return <View><Svg01/></View>;
 	}
+	case "01n": {
+		return <View><Svg01/></View>;
+	}
 	case "02d":{
+		return <View><Svg02/></View>;
+	}
+	case "02n": {
 		return <View><Svg02/></View>;
 	}
 	case "03d":{
 		return <View><Svg03/></View>;
 	}
+	case "03n": {
+		return <View><Svg03/></View>;
+	}
 	case "04d":{
+		return <View><Svg04/></View>;
+	}
+	case "04n": {
 		return <View><Svg04/></View>;
 	}
 	case "09d":{
 		return <View><Svg09/></View>;
 	}
+	case "09n": {
+		return <View><Svg09/></View>;
+	}
 	case "10d":{
+		return <View><Svg10/></View>;
+	}
+	case "10n": {
 		return <View><Svg10/></View>;
 	}
 	case "11d":{
 		return <View><Svg11/></View>;
 	}
+	case "11n": {
+		return <View><Svg11/></View>;
+	}
 	case "13d":{
 		return <View><Svg13/></View>;
 	}
+	case "13n": {
+		return <View><Svg13/></View>;
+	}
 	case "50d":{
+		return <View><Svg50/></View>;
+	}
+	case "50n": {
 		return <View><Svg50/></View>;
 	}
 	default: {
