@@ -40,5 +40,5 @@ View current temperature, humidity, and wind speed
 
 View a 5-day forecast for the selected location
 
-### Contributing ###\
+### Contributing ###
 Contributions are welcome! Please open an issue or submit a pull request.
