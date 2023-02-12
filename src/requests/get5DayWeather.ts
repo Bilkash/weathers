@@ -1,4 +1,5 @@
 import axios, { AxiosError } from "axios";
+// @ts-ignore
 import { API_KEY, BASE_URL } from "@env";
 
 import { ResponseType } from "../types/weathersTypes";
