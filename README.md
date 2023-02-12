@@ -1,15 +1,13 @@
-#Weathers (React Native + TypeScript) for Android
-
+# Weathers (React Native + TypeScript) for Android #
 A weather app for Android, built using React Native and TypeScript.
 
-###Requirements:
+### Requirements: ###
 * Node.js
 * React Native CLI
 * Android emulator or a physical Android device for testing
 * OpenWeatherMap API Key (Sign up for a free API key from OpenWeatherMap)
 
-###Installation:
-
+### Installation: ###
 Clone this repository and install dependencies:
 
 ```bash
@@ -28,16 +26,17 @@ touch .env
 API_KEY=your_openweathermap_api_key
 ```
 
-###Usage
+### Usage ###
 To run the app in an emulator:
 
 ```java
 npx react-native run-android
 ```
 
-###Features
+### Features ###
 Get real-time weather information for any Kharkiv
 View current temperature, humidity, and wind speed
 View a 5-day forecast for the selected location
-###Contributing
+
+### Contributing ###\
 Contributions are welcome! Please open an issue or submit a pull request.
