@@ -35,7 +35,9 @@ npx react-native run-android
 
 ### Features ###
 Get real-time weather information for any Kharkiv
+
 View current temperature, humidity, and wind speed
+
 View a 5-day forecast for the selected location
 
 ### Contributing ###\
