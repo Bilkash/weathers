@@ -1,4 +1,5 @@
 #Weathers (React Native + TypeScript) for Android
+
 A weather app for Android, built using React Native and TypeScript.
 
 ###Requirements:
