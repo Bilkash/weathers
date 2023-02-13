@@ -24,6 +24,7 @@ touch .env
 ```bash
 # .env
 API_KEY=your_openweathermap_api_key
+BASE_URL=https://api.openweathermap.org
 ```
 
 ### Usage ###
